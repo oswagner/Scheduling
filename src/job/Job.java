@@ -5,6 +5,47 @@ public class Job {
 	int arrivalTime;
 	int executionTime;
 	int priority;
+	int initialIOTime;
+	
+	public Job(int arrivalTime, int executionTime, int priority) {
+		this.arrivalTime = arrivalTime;
+		this.executionTime = executionTime;
+		this.priority = priority;
+	}
+
+	public int getArrivalTime() {
+		return arrivalTime;
+	}
+
+	public void setArrivalTime(int arrivalTime) {
+		this.arrivalTime = arrivalTime;
+	}
+
+	public int getExecutionTime() {
+		return executionTime;
+	}
+
+	public void setExecutionTime(int executionTime) {
+		this.executionTime = executionTime;
+	}
+
+	public int getPriority() {
+		return priority;
+	}
+
+	public void setPriority(int priority) {
+		this.priority = priority;
+	}
+
+	public int getInitialIOTime() {
+		return initialIOTime;
+	}
+
+	public void setInitialIOTime(int initialIOTime) {
+		this.initialIOTime = initialIOTime;
+	}
+	
+	
 }
 
 
@@ -28,6 +69,6 @@ public class Job {
  * 5 - tmp chegada 12 - tmp execução 1 - prioridade
  * 9 - tmp chegada 15 - tmp execução 2 - prioridade
  * 11 - tmp chegada 15 - tmp execução 1 - prioridade
- * 12 - tmp chegada 8 - tmp execução 5 - prioridade 2 - tempo E/S
+ * 12 - tmp chegada 8 - tmp execução 5 - prioridade 2 - tempo inicial E/S
  * 
  */

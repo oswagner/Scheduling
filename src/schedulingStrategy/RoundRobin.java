@@ -1,6 +1,6 @@
 package schedulingStrategy;
 
-import java.util.PriorityQueue;
+import java.util.ArrayList;
 
 import job.Job;
 
@@ -9,7 +9,8 @@ public class RoundRobin {
 	double avgResponseTime;
 	double waitTime;
 	int quantum;
-	PriorityQueue<Job> jobQueue;
+	ArrayList<Job> allJobs;
+	ArrayList<Job> readyJobs;
 
 	public int getQuantum() {
 		return quantum;
@@ -17,14 +18,6 @@ public class RoundRobin {
 
 	public void setQuantum(int quantum) {
 		this.quantum = quantum;
-	}
-
-	public PriorityQueue<Job> getJobQueue() {
-		return jobQueue;
-	}
-
-	public void setJobQueue(PriorityQueue<Job> jobQueue) {
-		this.jobQueue = jobQueue;
 	}
 
 	public void run() {

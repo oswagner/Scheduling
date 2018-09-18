@@ -4,10 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.PriorityQueue;
-
-import javax.sql.rowset.Joinable;
 
 import job.Job;
 import schedulingStrategy.RoundRobin;
@@ -16,14 +14,14 @@ public class Scheduling {
 
 	static String CONTEXT_CHANGE = "C";
 	static int READ_WRITE_TIME = 4;
-	
-	static PriorityQueue<Job> jobQueue;
+
+	static ArrayList<Job> allJobs;
 	static RoundRobin scheduling;
 
 	public static void main(String[] args) {
+		allJobs = new ArrayList<>();
 		scheduling = new RoundRobin();
 		readFile("InputFile");
-		scheduling.run();
 	}
 
 	public static void readFile(String fileName) {
@@ -38,28 +36,42 @@ public class Scheduling {
 		String line;
 
 		try {
-			
+
 			// número de processos
 			line = bufferReader.readLine();
-			jobQueue = new PriorityQueue<Job>(Integer.parseInt(line), new JobPriorityComparator());
-			
+
 			// tamanho de fatia de tempo
 			line = bufferReader.readLine();
 			scheduling.setQuantum(Integer.parseInt(line));
-			
-			while((line = bufferReader.readLine()) != null) {
+
+			while ((line = bufferReader.readLine()) != null) {
 				String[] jobElements;
 				jobElements = line.split(" ");
-				Job job = new Job(Integer.parseInt(jobElements[0]),Integer.parseInt(jobElements[1]), Integer.parseInt(jobElements[2]));
+				Job job = new Job(Integer.parseInt(jobElements[0]), Integer.parseInt(jobElements[1]),
+						Integer.parseInt(jobElements[2]));
 				if (jobElements.length == 4) {
 					job.setInitialIOTime(Integer.parseInt(jobElements[3]));
 				}
-				jobQueue.add(job);
+				allJobs.add(job);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
-			scheduling.setJobQueue(jobQueue);
+			Comparator<Job> c = new Comparator<Job>() {
+
+				@Override
+				public int compare(Job job1, Job job2) {
+					if (job1.getArrivalTime() < job2.getArrivalTime()) {
+						return -1;
+					} else if (job1.getArrivalTime() == job2.getArrivalTime()) {
+						return 0;
+					} else {
+						return 1;
+					}
+				}
+			};
+
+			allJobs.sort(c);
 			try {
 				bufferReader.close();
 			} catch (IOException e2) {

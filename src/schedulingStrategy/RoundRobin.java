@@ -81,7 +81,7 @@ public class RoundRobin extends Scheduler {
 
 			// imprime a troca de contexto
 			System.out.print("C");
-
+			restart:
 			for (int i = 0; i < quantum; i++) {
 				// executa de fato o processo
 				int executionTime = runningJob.getExecutionTime();
@@ -95,15 +95,7 @@ public class RoundRobin extends Scheduler {
 					// execução
 					while ((jobCounter != totalJobs) && allJobs.get(jobCounter).getArrivalTime() == CPUTime) {
 
-						// TODO: Lidar com a prioridade quando um novo processo chega para execução
-						if (allJobs.get(jobCounter).getPriority() < runningJob.getPriority()) {
-							addProcess(allJobs.get(jobCounter));
-//							---C1C222C222C444C222C444C222C444C444C444C11C333C111C333C111C333C1C333C333C55C---C5C555C55
-//							---C122C222C222C111C333C222C444C555C22CCCCCC
-						}
-
 						// TODO: lidar com chamada de I/O
-
 						// adiciona o novo processo na fila ready
 						addProcess(allJobs.get(jobCounter));
 						jobCounter++;
@@ -131,10 +123,11 @@ public class RoundRobin extends Scheduler {
 					// remove o processo que está no inicio da fila
 					removeProcess(0);
 				} else {
+					
 					// se nenhum processo foi removido até o momento giramos a fila
 					rotateReadyQueue();
-					// atualizamos o processo que está em excução na CPU
 					runningJob = getProcess(0);
+					
 				}
 			} else if (readyQueueEmpty() && jobCounter == totalJobs) {
 				// se a fila ready está vazia e o total de processos foi atigindo paramos a

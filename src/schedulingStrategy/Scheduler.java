@@ -11,13 +11,18 @@ public class Scheduler {
 	}
 
 	// adiciona um process na fila
-	public void addProcess(Job p) {
-		readyQueue.add(p);
+	public void addProcess(Job j) {
+		readyQueue.add(j);
+	}
+	
+	// adiciona como próximo a ser executado
+	public void addProcesWithPriority(Job j) {
+		readyQueue.set(0, j);
 	}
 
 	// remove um processo da fila
-	public void removeProcess(int p) {
-		readyQueue.remove(p);
+	public void removeProcess(int j) {
+		readyQueue.remove(j);
 	}
 
 	// retorna um processo pela posicão

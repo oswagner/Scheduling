@@ -77,9 +77,11 @@ public class Job {
 
 	@Override
 	public String toString() {
-		return "Job [arrivalTime=" + arrivalTime + ", executionTime=" + executionTime + ", priority=" + priority
-				+ ", initialIOTime=" + initialIOTime + "]";
+		return "Job [id=" + id + ", arrivalTime=" + arrivalTime + ", executionTime=" + executionTime + ", priority="
+				+ priority + ", initialIOTime=" + initialIOTime + "]";
 	}
+
+	
 }
 
 /*

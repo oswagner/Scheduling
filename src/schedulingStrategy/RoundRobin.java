@@ -47,6 +47,8 @@ public class RoundRobin extends Scheduler {
 				// adiciona o primeiro processo na fila ready
 				addProcess(runningJob);
 				jobCounter++;
+				// imprime a troca de contexto
+				System.out.print("C");
 				// adiciona no processo o seu tempo de resposta
 				runningJob.setResponseTime(CPUTime - runningJob.getArrivalTime());
 			} else {
@@ -70,6 +72,8 @@ public class RoundRobin extends Scheduler {
 					// como a fila estava vazia altera o processo que estava executando para o
 					// inicio da fila
 					runningJob = getProcess(0);
+					// imprime a troca de contexto
+					System.out.print("C");
 					// adiciona no processo o seu tempo de resposta
 					runningJob.setResponseTime(CPUTime - runningJob.getArrivalTime());
 					jobCounter++;
@@ -78,10 +82,7 @@ public class RoundRobin extends Scheduler {
 					CPUTime++;
 				}
 			}
-
-			// imprime a troca de contexto
-			System.out.print("C");
-			restart:
+			
 			for (int i = 0; i < quantum; i++) {
 				// executa de fato o processo
 				int executionTime = runningJob.getExecutionTime();
@@ -94,7 +95,6 @@ public class RoundRobin extends Scheduler {
 					// verifica se ao executar o processo acima, nenhum outro processo chegou para
 					// execução
 					while ((jobCounter != totalJobs) && allJobs.get(jobCounter).getArrivalTime() == CPUTime) {
-
 						// TODO: lidar com chamada de I/O
 						// adiciona o novo processo na fila ready
 						addProcess(allJobs.get(jobCounter));
@@ -116,7 +116,6 @@ public class RoundRobin extends Scheduler {
 
 			// se a fila não esta vazia ainda existem outros processos para executar
 			if (!readyQueueEmpty()) {
-
 				// se o processo que estava na CPU estiver executado por completo, remove da
 				// fila ready
 				if (runningJob.getExecutionTime() == 0) {
@@ -127,6 +126,8 @@ public class RoundRobin extends Scheduler {
 					// se nenhum processo foi removido até o momento giramos a fila
 					rotateReadyQueue();
 					runningJob = getProcess(0);
+					// imprime a troca de contexto
+					System.out.print("C");
 					
 				}
 			} else if (readyQueueEmpty() && jobCounter == totalJobs) {

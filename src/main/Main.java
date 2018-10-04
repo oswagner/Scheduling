@@ -13,12 +13,11 @@ import schedulingStrategy.RoundRobin;
 
 public class Main {
 
-	static String CONTEXT_CHANGE = "C";
 	static int READ_WRITE_TIME = 4;
 
 	static RoundRobin scheduling;
 	
-	static final String FILENAME = "InputFile";
+	static final String FILENAME = "trab-so1-teste4";
 
 	public static void main(String[] args) {
 		scheduling = new RoundRobin();
